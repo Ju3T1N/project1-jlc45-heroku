@@ -3,6 +3,7 @@ from tweepy import API
 import flask
 import random
 import os
+import json
 
 #Twitter api validation pre flasking
 consumer_key=os.environ['TKEY']
@@ -18,30 +19,25 @@ app = flask.Flask(__name__)
 @app.route('/')  # we’ll use the default page
 def index(): 
     
-    foodlist=['pork chop','cookie','pizza','curry', 'steak','jumbo shrimp','spaghetti'] #list
+    foodlist=['pork chop','cookie','pizza','curry', 'steak','spaghetti', 'shrimp'] #list
     random.seed() #initialize rng
-    cfood=foodlist[random.randint(0,6)] #use random to choose a food
-
+    cfood=foodlist[random.randint(0,len(foodlist)-1)] #use random to choose a food
+    print(cfood+'\n'+'\n')
     tweets=twitter_api.search(cfood, count=50)
     tweetlist=[]
     for tweet in tweets:
         tweetlist.append([tweet.user.screen_name, str(tweet.created_at), tweet.text])
     select_tweets=[]
-    while len(select_tweets)<5:
-        chosen=random.randint(0,len(tweetlist))
-        if chosen not in select_tweets:
-            select_tweets.append(chosen)
+    while len(select_tweets)<10:
+        chosen=random.randint(0,len(tweetlist)-1)
+        if tweetlist[chosen] not in select_tweets:
+            select_tweets.append(tweetlist[chosen])
     
     return flask.render_template(
         "app.html", 
         food=cfood,
         #export all of the different parts of the 5 tweets
-	    tweet1=tweetlist[select_tweets[0]],
-	    tweet2=tweetlist[select_tweets[1]],
-	    tweet3=tweetlist[select_tweets[2]],
-	    tweet4=tweetlist[select_tweets[3]],
-	    tweet5=tweetlist[select_tweets[4]]
-         
+        tweets=select_tweets
         )
 
 app.run(
