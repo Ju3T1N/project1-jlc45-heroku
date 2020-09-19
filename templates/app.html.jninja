@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <h1> What people are saying about {{ food }}</h1>
+         <p id="p1"></p>
+         <p id="p2"></p>
+         <script>
+            var tweet=JSON.parse( {{ tweets | tojson }} )
+            var disp=''
+            document.getElementById("p1").innerHTML=disp.concat(tweet[0][0]," ",tweet[0][1])
+            document.getElementById("p2").innerHTML=tweet[0][2]
+            
+         </script>
+    </body>
+</html>

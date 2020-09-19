@@ -1,5 +1,6 @@
 from tweepy import OAuthHandler
 from tweepy import API
+from jinja2 import Template
 import flask
 import random
 import os
@@ -32,12 +33,13 @@ def index():
         chosen=random.randint(0,len(tweetlist)-1)
         if tweetlist[chosen] not in select_tweets:
             select_tweets.append(tweetlist[chosen])
+        tweets=json.dumps(select_tweets)
     
     return flask.render_template(
-        "app.html", 
+        "app.html.jninja", 
         food=cfood,
         #export all of the different parts of the 5 tweets
-        tweets=select_tweets
+        tweets=tweets
         )
 
 app.run(
