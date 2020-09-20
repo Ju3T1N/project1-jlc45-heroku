@@ -1,0 +1,39 @@
+body {
+  background-color: olive;
+  max-width: 500px;
+  text-align: center;
+  margin: auto;
+}
+
+h1 {
+  font-family: 'Vivaldi';
+  font-size: 39px;
+  color: lime;
+  text-align: center;
+  margin-left: 20px;
+}
+.ttable{
+  border-spacing:0px;
+  border-radius: 25px;
+  background: black;
+  padding: 10px;
+}
+
+.tmeta {
+  font-size: 18px; 
+  font-family:"Comic Sans MS", cursive, sans-serif;
+  color: lime;
+  text-align: center;
+  margin-left: 20px;
+  background-color: black;
+  
+}
+
+.ttext {
+  font-size: 13 px;
+  font-family:"Comic Sans MS", cursive, sans-serif;
+  color: lime;
+  text-align: center;
+  margin-left: 20px;
+  background-color: black;
+}

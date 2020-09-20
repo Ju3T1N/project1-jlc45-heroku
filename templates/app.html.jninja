@@ -1,16 +1,25 @@
 <!doctype html>
 <html>
     <head>
-        
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" type="text/css" href={{ url_for( 'static', filename='proj1.css' ) }} > </link>
+        <title>Food Experience</title
     </head>
     <body>
         <h1> What people are saying about {{ food }}</h1>
-         <p id="p1"></p>
-         <p id="p2"></p>
+        <table class='ttable'>
+             <tr>
+                <td id="p1" class="tmeta"></td>
+            </tr>
+            <tr>
+                <td id="p2" class="ttext"></td>
+            </tr>
+         </table>
          <script>
             var tweet=JSON.parse( {{ tweets | tojson }} )
             var disp=''
-            document.getElementById("p1").innerHTML=disp.concat(tweet[0][0]," ",tweet[0][1])
+            document.getElementById("p1").innerHTML=disp.concat( "<img src=\'", tweet[0][3],"\'/>"," ",tweet[0][0]," ",tweet[0][1])
+            
             document.getElementById("p2").innerHTML=tweet[0][2]
             
          </script>

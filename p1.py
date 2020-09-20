@@ -27,7 +27,7 @@ def index():
     tweets=twitter_api.search(cfood, count=50)
     tweetlist=[]
     for tweet in tweets:
-        tweetlist.append([tweet.user.screen_name, str(tweet.created_at), tweet.text])
+        tweetlist.append([tweet.user.screen_name, str(tweet.created_at), tweet.text, tweet.user.profile_image_url])
     select_tweets=[]
     while len(select_tweets)<10:
         chosen=random.randint(0,len(tweetlist)-1)
