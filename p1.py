@@ -4,6 +4,7 @@ from jinja2 import Template
 from spoon import spoon_output
 import flask
 import random
+import string
 import os
 import json
 
@@ -26,7 +27,7 @@ def index():
     ingred=json.dumps(output[5])
     
     
-    tweets=twitter_api.search(cfood, count=10)
+    tweets=twitter_api.search(cfood.split()[ len( cfood.split() ) - 1 ], count=10)
     tweetlist=[]
     for tweet in tweets:
         tweetlist.append([tweet.user.screen_name, str(tweet.created_at), tweet.text, tweet.user.profile_image_url])
