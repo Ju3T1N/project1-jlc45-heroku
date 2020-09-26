@@ -1,6 +1,7 @@
 from tweepy import OAuthHandler
 from tweepy import API
 from jinja2 import Template
+from spoon import spoon_output
 import flask
 import random
 import os
