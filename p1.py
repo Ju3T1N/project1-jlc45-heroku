@@ -21,24 +21,32 @@ app = flask.Flask(__name__)
 @app.route('/')  # we’ll use the default page
 def index(): 
     
-    foodlist=['pork chop','cookie','pizza','curry', 'steak','spaghetti', 'shrimp'] #list
-    random.seed() #initialize rng
-    cfood=foodlist[random.randint(0,len(foodlist)-1)] #use random to choose a food
-    print(cfood+'\n'+'\n')
-    tweets=twitter_api.search(cfood, count=50)
+    output=spoon_output() #list gotten from spoon
+    cfood=output[0]
+    ingred=json.dumps(output[5])
+    
+    
+    tweets=twitter_api.search(cfood, count=10)
     tweetlist=[]
     for tweet in tweets:
         tweetlist.append([tweet.user.screen_name, str(tweet.created_at), tweet.text, tweet.user.profile_image_url])
+    random.seed() #initialize rng
     select_tweets=[]
-    while len(select_tweets)<10:
-        chosen=random.randint(0,len(tweetlist)-1)
-        if tweetlist[chosen] not in select_tweets:
-            select_tweets.append(tweetlist[chosen])
-        tweets=json.dumps(select_tweets)
+    if len(tweetlist)>0:
+        while len(select_tweets)<len(tweetlist):
+            chosen=random.randint(0,len(tweetlist)-1)
+            if tweetlist[chosen] not in select_tweets:
+                select_tweets.append(tweetlist[chosen])
+    tweets=json.dumps(select_tweets)
     
     return flask.render_template(
         "app.html.jninja", 
         food=cfood,
+        fsource=output[1],
+        fimg=output[2],
+        fpreptime=output[3],
+        fserv=output[4],
+        fing=ingred,
         #export all of the different parts of the 5 tweets
         tweets=tweets
         )
