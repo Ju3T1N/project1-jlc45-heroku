@@ -24,7 +24,7 @@ def index():
     
     output=spoon_output() #list gotten from spoon
     cfood=output[0]
-    ingred=json.dumps(output[5])
+    ingred=output[5]
     
     
     tweets=twitter_api.search(cfood.split()[ len( cfood.split() ) - 1 ], count=10)
@@ -48,6 +48,7 @@ def index():
         fpreptime=output[3],
         fserv=output[4],
         fing=ingred,
+        ilen=len(ingred),
         #export all of the different parts of the 5 tweets
         tweets=tweets
         )

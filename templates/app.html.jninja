@@ -5,8 +5,31 @@
         <link rel="stylesheet" type="text/css" href={{ url_for( 'static', filename='proj1.css' ) }} > </link>
         <title>Food Experience</title
     </head>
+    
     <body>
         <h1> What people are saying about {{ food }}</h1>
+        <h2> Recipe obtained from: <a href="{{fsource}}">{{fsource}}</a><h2>
+        <table class='rtable'>
+            <tr>
+                <td><img src= "{{ fimg }}" style="width:200px;height:100px;"></td>
+                <td id="ingred"> 
+                     <p>Ingredients</p>
+                    <ul>
+                    {%for i in range(0,ilen)%}
+                        <li>{{fing[i]}}</li>
+                    {%endfor%}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Prep Time: {{ fpreptime }} minutes</td>
+                <td>Makes {{ fserv }} servings</td>
+            </tr>
+            <tr>
+            </tr>
+            
+        </table>
+        
         <table class='ttable'>
              <tr>
                 <td id="p1" class="tmeta"></td>
@@ -15,13 +38,21 @@
                 <td id="p2" class="ttext"></td>
             </tr>
          </table>
+         
          <script>
             var tweet=JSON.parse( {{ tweets | tojson }} )
-            var disp=''
-            document.getElementById("p1").innerHTML=disp.concat( "<img src=\'", tweet[0][3],"\'/>"," ",tweet[0][0]," ",tweet[0][1])
+            var i=0;
+            var disp='';
             
-            document.getElementById("p2").innerHTML=tweet[0][2]
             
+            function tweetswap(){
+                document.getElementById("p1").innerHTML=disp.concat( "<img src=\'", tweet[i][3],"\'/>"," ",tweet[i][0]," ",tweet[i][1])
+                document.getElementById("p2").innerHTML=tweet[i][2]
+                i=i+1;
+                if(i>tweet.length-1){i=0;}
+                setTimeout(tweetswap, 10000);
+            }
+            tweetswap();
          </script>
     </body>
 </html>
