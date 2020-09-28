@@ -57,6 +57,7 @@ h2 {
 .ping {
   font-size: 18px;
   text-align: center;
+  text-decoration: underline;
 }
 #ingred {
   text-align: left;

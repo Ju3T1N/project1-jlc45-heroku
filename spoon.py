@@ -1,10 +1,19 @@
 import json
+import os
+import spoonacular
 
 def spoon_output():
     output=[]
-    with open('default.json') as f:
-        data = json.load(f)
+    api_key=os.environ['SPOKEY']
+    try:
+        api=spoonacular.API(api_key)
+        result=api.get_random_recipes()
+        data=result.json()
         
+    except:
+      with open('default.json') as f:
+        data = json.load(f)
+      
 #the first index is the name of the item
     output.append(data.get('recipes')[0].get('title'))
 #the second index is the url of the recipe
