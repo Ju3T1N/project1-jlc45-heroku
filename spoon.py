@@ -1,6 +1,11 @@
 import json
 import os
 import spoonacular
+from os.path import join, dirname
+from dotenv import load_dotenv
+
+dotenv_path = join(dirname(__file__), 'API.env')
+load_dotenv(dotenv_path)
 
 def spoon_output():
     output=[]

@@ -7,7 +7,11 @@ import random
 import string
 import os
 import json
+from os.path import join, dirname
+from dotenv import load_dotenv
 
+dotenv_path = join(dirname(__file__), 'API.env')
+load_dotenv(dotenv_path)
 #Twitter api validation pre flasking
 consumer_key=os.environ['TKEY']
 consumer_secret=os.environ['TSKEY']
